@@ -11,4 +11,10 @@ export default makeStyles((theme) => ({
   actionDiv: {
     textAlign: 'center',
   },
+  spinnerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight:'60vh',
+  }
 }));
