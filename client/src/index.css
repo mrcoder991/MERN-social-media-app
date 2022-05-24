@@ -5,9 +5,9 @@
 }
 body {
     background-image: url("https://source.unsplash.com/random/1960×1080/?travel,street,mountains,nature");
-    background-position: top;
-    background-size: 100%;
-    background-repeat: repeat-y;
-    backdrop-filter: blur(5px);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    /* backdrop-filter: blur(5px); */
     min-height: 100vh;
 }

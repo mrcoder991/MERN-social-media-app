@@ -21,7 +21,7 @@ const Auth = () => {
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
-        e.preventDefalult()
+        e.preventDefault()
         if (isSignUp) {
             dispatch(signup(formData, navigate))
         } else {

@@ -1,32 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core'
+import React, { useState, useEffect } from 'react';
+import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 import useStyles from './Styles'
 import memories from '../../images/memories.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import * as actionType from '../../constants/actionTypes';
 
 const Navbar = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  console.log(user);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const classes = useStyles();
+
+
+  // console.log(user);
+
+  const logout = () => {
+    dispatch({ type: actionType.LOGOUT });
+    navigate('/auth');
+    setUser(null);
+  };
 
   useEffect(() => {
     const token = user?.token;
 
-    //jwt
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
 
     setUser(JSON.parse(localStorage.getItem('profile')))
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
-  const logout = () => {
-    dispatch({ type: 'LOGOUT' });
-    navigate('/');
-    setUser = null;
-  }
+ 
+  
   
 
   return (
