@@ -53,7 +53,7 @@ const Home = () => {
 
     return (
         <Grow in>
-            <Container maxWidth='xl'>
+            <Container maxWidth='xl' style={{margin:'100px 0 20px'}}>
                 <Grid container className={classes.gridContainer} justifyContent="space-between" alignItems="stretch" spacing={3}>
                     <Grid item xs={12} sm={6} md={9}>
                         <Posts setCurrentId={setCurrentId} />
@@ -63,7 +63,7 @@ const Home = () => {
                             <TextField
                                 name='search'
                                 varient='outlined'
-                                label='Serch Memories'
+                                label='Serch Notions'
                                 fullWidth
                                 onKeyPress={handleKeyPress}
                                 value={search}
@@ -80,16 +80,17 @@ const Home = () => {
                             <Button onClick={searchPost} className={classes.searchButton} color="primary" variant='contained'>Search</Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        {(!searchQuery && !tags.length) && (
+                        
+                    </Grid>
+                </Grid>
+                {(!searchQuery && !tags.length) && (
                         <Paper className={classes.pagination} elevation={6}>
                                 <Pagination page={page}/>
                         </Paper>
-                        )}
-                    </Grid>
-                </Grid>
+                )}
             </Container>
         </Grow>
     )
 }
 
-export default Home
+export default Home;

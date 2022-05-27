@@ -1,11 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors';
 
-export default makeStyles({
+export default makeStyles((theme) => ({
   media: {
-    height: 0,
-    paddingTop: '56.25%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    backgroundBlendMode: 'darken',
+    height: '0',
+    paddingTop: '90%',
+    // backgroundBlendMode: 'darken',
   },
   border: {
     border: 'solid',
@@ -17,7 +17,7 @@ export default makeStyles({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    borderRadius: '15px',
+    borderRadius: '12px',
     height: '100%',
     position: 'relative',
   },
@@ -49,4 +49,16 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
-});
+  message: {
+    display: 'inline-block',
+    height: '58px',
+    // whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    marginBottom:'10px'
+  },
+  purple: {
+    color: theme.palette.getContrastText(red[500]),
+    backgroundColor: red[500],
+  },
+}));

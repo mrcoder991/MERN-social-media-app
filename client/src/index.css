@@ -4,10 +4,10 @@
     box-sizing: border-box;
 }
 body {
-    background-image: url("https://source.unsplash.com/random/1960×1080/?travel,street,mountains,nature");
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url("https://source.unsplash.com/random/1960×1080/?travel,street,mountains,nature");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    /* backdrop-filter: blur(5px); */
-    min-height: 100vh;
+    /* backdrop-filter: blur(15px); */
+    min-height: calc(100vh - 100px);
 }

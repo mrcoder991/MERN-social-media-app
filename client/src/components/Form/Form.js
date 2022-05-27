@@ -53,7 +53,7 @@ const Form = ({ currentId, setCurrentId }) => {
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Typography
           variant="h6">
-          {currentId ? `Editing "${post.title}"` : 'Creating a Memory'}
+          {currentId ? `Editing "${post.title}"` : 'Create a Notion'}
         </Typography>
         <TextField
           name="title"

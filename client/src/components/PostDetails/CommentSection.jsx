@@ -33,7 +33,7 @@ const CommentSection = ({ post }) => {
                   ))}
                     <div ref={commentsRef}/>
                 </div>
-                <div style={{width: '70%'}}>
+                <div className={classes.commentsTextContainer}>
                   <Typography gutterBottom variant='h6'>Write a comment</Typography>
                   <TextField
                       fullWidth
@@ -48,7 +48,7 @@ const CommentSection = ({ post }) => {
                   <Button style={{ marginTop: '10px' }} fullWidth disabled={!comment || !user?.result?.name} variant='contained' color='primary' onClick={handleClick}>
                       {user?.result?.name ?  'comment' : 'Login To Post Comment'}
                   </Button>
-                    </div>
+                </div>
           </div>
     </div>
   )

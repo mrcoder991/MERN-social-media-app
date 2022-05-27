@@ -6,6 +6,7 @@ export default makeStyles((theme) => ({
     marginBottom: '1rem',
     display: 'flex',
     padding: '16px',
+    borderRadius:'12px',
   },
   pagination: {
     borderRadius: 4,

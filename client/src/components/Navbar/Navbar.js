@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Avatar, Button, Toolbar, Typography,MenuItem, Box, Tooltip,Menu,IconButton  } from '@material-ui/core';
+import Modal from '../Modal'
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import useStyles from './Styles'
-import memoriesLogo from '../../images/memories-Logo.png';
-import memoriesText from '../../images/memories-Text.png';
+import nonText from '../../images/nonText.png';
+import nonLogo from '../../images/nonLogo.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import * as actionType from '../../constants/actionTypes';
+
+
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -38,26 +41,70 @@ const Navbar = () => {
   }, [location])
 
  
+    // const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
   
+    // const handleOpenNavMenu = (event) => {
+    //   setAnchorElNav(event.currentTarget);
+    // };
+    const handleOpenUserMenu = (event) => {
+      setAnchorElUser(event.currentTarget);
+    };
+  
+    // const handleCloseNavMenu = () => {
+    //   setAnchorElNav(null);
+    // };
+  
+    const handleCloseUserMenu = () => {
+      setAnchorElUser(null);
+    };
   
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <Link to='/' className={classes.brandContainer}>
-        <img src={memoriesText} alt='icon' height='40px'/>
-        <img className={classes.image} src={memoriesLogo} alt="icon" height="40px" />
+        <img src={nonLogo} alt='icon' height='40px'/>
+        <img className={classes.textImage} src={nonText} alt="icon" height="30px" />
       </Link>
-      <Toolbar className={classes.Toolbar} >
+      <Toolbar className={classes.toolbar}>
+        <Modal/>
         {user ? (
-          <div className={classes.profile}>
-            <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0)}</Avatar>
-            <Typography className={classes.username} variant="h6">{user.result.name}</Typography>
-            <Button variant='contained' className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
-          </div>
+          <Box sx={{ flexGrow: 0 }}>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Avatar className={classes.purple} alt={user?.result?.name} src={user?.result?.imageUrl}>{user?.result?.name?.charAt(0)}</Avatar>
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            <MenuItem onClick={handleCloseUserMenu}>
+            <Typography >{user?.result?.name}</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleCloseUserMenu}>
+              <Typography onClick={logout} textalign="center">Logout</Typography>
+            </MenuItem>
+          </Menu>
+        </Box>
         ) : (
             <Button component={Link} to="/auth" variant="contained" color='primary'>Sign In</Button>
         )}
+        
       </Toolbar>
+
       </AppBar>
   )
 }

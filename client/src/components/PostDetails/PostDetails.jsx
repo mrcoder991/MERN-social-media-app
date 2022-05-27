@@ -36,7 +36,7 @@ const PostDetails = () => {
   if (isLoading) {
     return (
       <Paper elevation={6} className={classes.loadingPaper}>
-        <CircularProgress size="7em" />
+        <CircularProgress size="5em" />
       </Paper>
     );
   }
@@ -44,30 +44,15 @@ const PostDetails = () => {
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
 
   return (
-    <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
+    <Paper style={{ padding: "20px", borderRadius: "15px", margin:'100px 0 12px'}} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
-          <Typography variant="h3" component="h2">
-            {post.title}
-          </Typography>
-          <Typography
-            gutterBottom
-            variant="h6"
-            color="textSecondary"
-            component="h2"
-          >
-            {post.tags.map((tag) => `#${tag} `)}
-          </Typography>
-          <Typography gutterBottom variant="body1" component="p">
-            {post.message}
-          </Typography>
-          <Typography variant="h6">Created by: {post.name}</Typography>
-          <Typography variant="body1">
+          <Typography gutterBottom variant="h6" component="h2"><strong>{post.title}</strong></Typography>
+          <Typography gutterBottom variant="body2" color="textSecondary" component="p">{post.message}</Typography>
+          <Typography gutterBottom variant="caption" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+          <Typography variant="subtitle1"><strong>Created by:</strong> {post.name}</Typography>
+          <Typography variant="body2">
             {moment(post.createdAt).fromNow()}
-          </Typography>
-          <Divider style={{ margin: "20px 0" }} />
-          <Typography variant="body1">
-            <strong>Realtime Chat - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: "20px 0" }} />
           
