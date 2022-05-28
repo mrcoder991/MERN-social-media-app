@@ -84,6 +84,7 @@ const Form = ({ currentId, setCurrentId }) => {
           className={classes.fileInput}>
           <FileBase
             type="file"
+            inputProps={{accept : "image/*"}}
             multiple={false}
             onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}
           />

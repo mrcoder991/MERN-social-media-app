@@ -117,9 +117,9 @@ const Post = ({ post, setCurrentId }) => {
           title={post.title} />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">{post.title}</Typography>
-          <div className={classes.message}>
+          {/* <div className={classes.message}> */}
             <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
-          </div>
+          {/* </div> */}
           <Typography variant="caption" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
         </CardContent>
       </div>
