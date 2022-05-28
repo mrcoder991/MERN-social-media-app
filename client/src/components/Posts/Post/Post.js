@@ -18,23 +18,24 @@ const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const [likes, setLikes] = useState(post?.likes)
 
-  const userId = !user?.result.googleId || user?.result?._id
-  const hasLikedPost = likes.find((like) => like === userId);
+  const userId = user?.result.googleId || user?.result?._id;
+  const hasLikedPost = post.likes.find((like) => like === userId);
 
   const handleLike = async () => {
     dispatch(likePost(post._id));
+
     if (hasLikedPost) {
-      setLikes(likes.filter((id) => id !== userId))
+      setLikes(post.likes.filter((id) => id !== userId));
     } else {
-      setLikes([...likes, userId])
+      setLikes([...post.likes, userId]);
     }
-  }
+  };
 
   const Likes = () => {
     if (likes.length > 0) {
-      return hasLikedPost
+      return likes.find((like) => like === userId)
         ? (
-          <><ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}</>
+          <><ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}` }</>
         ) : (
           <><ThumbUpAltOutlined fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}</>
         );
