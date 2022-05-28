@@ -1,30 +1,51 @@
 import express from 'express';
 import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
+import ImageKit from "imagekit";
+import dotenv from 'dotenv';
+
 
 const router = express.Router();
 
-export const getPost = async (req, res) => { 
+dotenv.config();
+
+var imagekit = new ImageKit({
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
+});
+
+const uploadFileBase64 = async (imagekitInstance, file_base64, fileName, tags) => {
+    const response = await imagekitInstance.upload({
+        file: file_base64,
+        fileName: fileName,
+        folder: 'NotionOfNetizen',
+        tags:tags,
+    });
+    return response;
+};
+
+export const getPost = async (req, res) => {
     const { id } = req.params;
     try {
         const post = await PostMessage.findById(id);
-                
+
         res.status(200).json(post);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
 }
 
-export const getPosts = async (req, res) => { 
+export const getPosts = async (req, res) => {
     const { page } = req.query;
     try {
         const LIMIT = 10;
         const startIndex = (Number(page) - 1) * LIMIT;
         const total = await PostMessage.countDocuments({});
 
-        const posts = await PostMessage.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
-                
-        res.status(200).json({data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total/LIMIT)});
+        const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+
+        res.status(200).json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -35,23 +56,28 @@ export const getPostsBySearch = async (req, res) => {
     try {
         const title = new RegExp(searchQuery, 'i');
         const posts = await PostMessage.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] });
-        res.json({data:posts})
+        res.json({ data: posts })
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
 }
 
-export const createPost =  async (req, res) => {
+export const createPost = async (req, res) => {
     const post = req.body;
 
-    const newPost = new PostMessage({...post, creator: req.userId, createdAt: new Date().toISOString()});
-    
+    var base64Img = post.selectedFile;
+
+    const uploadResponse_base64 = await uploadFileBase64(imagekit, base64Img, `${post.title}`, post.tags);               
+    console.log(uploadResponse_base64.url)
+
+    const newPost = new PostMessage({ ...post, creator: req.userId, selectedFile:uploadResponse_base64.url,  createdAt: new Date().toISOString() });
+
     try {
         await newPost.save()
         res.status(201).json(newPost);
-   } catch (error) {
-       res.status(409).json({message : error.messsage})
-   }
+    } catch (error) {
+        res.status(409).json({ message: error.messsage })
+    }
 }
 
 export const updatePost = async (req, res) => {
@@ -60,19 +86,22 @@ export const updatePost = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id');
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(_id, {...post, _id}, { new: true });
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, { ...post, _id }, { new: true });
     res.json(updatedPost);
 }
 
 export const deletePost = async (req, res) => {
     const { id: _id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id');
+    try {
+        if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id');
 
-    await PostMessage.findByIdAndRemove(_id);
+        await PostMessage.findByIdAndRemove(_id);
 
-    res.json({message: 'Post deleted Succesfully'})
-
+        res.json({ message: 'Post deleted Succesfully' })
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export const likePost = async (req, res) => {
@@ -92,7 +121,7 @@ export const likePost = async (req, res) => {
         post.likes = post.likes.filter((id) => id !== String(req.userId));
     }
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {new:true})
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true })
 
     res.status(200).json(updatedPost)
 }
