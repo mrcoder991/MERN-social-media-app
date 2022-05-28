@@ -51,7 +51,7 @@ export default makeStyles((theme) => ({
   },
   message: {
     display: 'inline-block',
-    height: '58px',
+    height: '44px',
     // whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
