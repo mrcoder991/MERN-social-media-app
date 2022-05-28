@@ -117,7 +117,8 @@ const Auth = () => {
                                 // color='primary'
                                 fullWidth
                                 onClick={renderProps.onClick}
-                                disabled={renderProps.disabled}
+                                // disabled={renderProps.disabled}
+                                disabled={true}
                                 startIcon={<Icon />}
                                 variant='contained'
                             >Sign In With Google
