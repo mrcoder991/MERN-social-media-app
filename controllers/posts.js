@@ -39,7 +39,7 @@ export const getPost = async (req, res) => {
 export const getPosts = async (req, res) => {
     const { page } = req.query;
     try {
-        const LIMIT = 10;
+        const LIMIT = 9;
         const startIndex = (Number(page) - 1) * LIMIT;
         const total = await PostMessage.countDocuments({});
 
@@ -70,7 +70,7 @@ export const createPost = async (req, res) => {
     const uploadResponse_base64 = await uploadFileBase64(imagekit, base64Img, `${post.title}`, post.tags);               
     console.log(uploadResponse_base64.url)
 
-    const newPost = new PostMessage({ ...post, creator: req.userId, selectedFile:uploadResponse_base64.url,  createdAt: new Date().toISOString() });
+    const newPost = new PostMessage({ ...post, creator: req.userId, selectedFile:uploadResponse_base64.url, selectedFileId:uploadResponse_base64.fileId,  createdAt: new Date().toISOString() });
 
     try {
         await newPost.save()
