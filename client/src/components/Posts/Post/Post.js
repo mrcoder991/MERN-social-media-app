@@ -113,7 +113,7 @@ const Post = ({ post, setCurrentId }) => {
           component={Link}
           to={`/posts/${post._id}`}
           className={classes.media}
-          image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'}
+          image={`${post.selectedFile}?tr=w-800` || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'}
           title={post.title} />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">{post.title}</Typography>

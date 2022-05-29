@@ -64,7 +64,7 @@ const PostDetails = () => {
           <img
             className={classes.media}
             src={
-              post.selectedFile ||
+              `${post.selectedFile}?tr=w-1000` ||
               "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
             }
             alt={post.title}
@@ -87,11 +87,13 @@ const PostDetails = () => {
                 <img src={selectedFile} width="200px" />
               </div>
             ))} */}
+            <Grid className={classes.container} container alignItems="stretch" spacing={3}>
             {recommendedPosts.map((post) => (
               <Grid key={post._id} item xs={12} sm={12} md={3}>
                 <Post post={post} />
               </Grid>
             ))}
+            </Grid>
           </div>
         </div>
       )}
