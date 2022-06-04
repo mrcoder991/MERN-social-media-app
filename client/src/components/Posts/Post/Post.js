@@ -4,6 +4,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Comment from '@material-ui/icons/Comment';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -103,12 +104,6 @@ const Post = ({ post, setCurrentId }) => {
           title={post.name}
           subheader={moment(post.createdAt).fromNow()}
         />
-        {/* <CardMedia
-          component={Link}
-          to={`/posts/${post._id}`}
-          height="250"
-          image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'}
-        /> */}
         <CardMedia
           component={Link}
           to={`/posts/${post._id}`}
@@ -137,9 +132,13 @@ const Post = ({ post, setCurrentId }) => {
               <DeleteIcon fontSize="small" />
             </Button>
         )}
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
+        <Button
+          component={Link}
+          to={`/posts/${post._id}`}
+          size="small"
+          color="primary">
+          <Comment/>
+        </Button>
 
         {/* <ExpandMore
           expand={expanded}

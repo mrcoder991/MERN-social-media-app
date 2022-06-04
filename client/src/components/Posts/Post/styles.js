@@ -3,9 +3,7 @@ import { red } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   media: {
-    height: '0',
-    paddingTop: '90%',
-    // backgroundBlendMode: 'darken',
+    aspectRatio: '1/1',
   },
   border: {
     border: 'solid',
