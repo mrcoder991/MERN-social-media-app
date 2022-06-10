@@ -103,14 +103,16 @@ const Form = ({ currentId, setCurrentId }) => {
              color="primary"
              size="large"
              type="submit"
-             fullWidth>
+             fullWidth
+             disableElevation>
              Submit
            </Button>
            <Button
              variant="contained"
              color="secondary"
              size="small"
-             onClick={clear}
+              onClick={clear}
+              disableElevation
              fullWidth>
              Clear
            </Button>

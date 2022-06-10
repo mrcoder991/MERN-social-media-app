@@ -106,7 +106,7 @@ const Auth = () => {
                             />
                         }
                     </Grid>
-                    <Button type="submit" fullWidth variant='contained' color='primary' className={classes.submit}>
+                    <Button type="submit" fullWidth variant='contained' color='primary' className={classes.submit} disableElevation>
                         {isSignUp ? 'Sign Up' : 'Sign In'}
                     </Button>
                     <GoogleLogin
@@ -121,6 +121,7 @@ const Auth = () => {
                                 disabled={true}
                                 startIcon={<Icon />}
                                 variant='contained'
+                                disableElevation
                             >Sign In With Google
                             </Button>
                         )}
@@ -130,7 +131,7 @@ const Auth = () => {
                     />
                     <Grid container justifyContent='flex-end'>
                         <Grid item>
-                            <Button onClick={switchMode}>
+                            <Button disableElevation onClick={switchMode}>
                             {isSignUp ? 'Already have an Account? Sign In' : "Don't have an Account? Sign Up"}
                             </Button>
                         </Grid>

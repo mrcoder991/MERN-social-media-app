@@ -45,7 +45,7 @@ const CommentSection = ({ post }) => {
                       disabled={!user?.result?.name}
                       onChange={(e)=> setComment(e.target.value)}
                   />
-                  <Button style={{ marginTop: '10px' }} fullWidth disabled={!comment || !user?.result?.name} variant='contained' color='primary' onClick={handleClick}>
+                  <Button disableElevation style={{ marginTop: '10px' }} fullWidth disabled={!comment || !user?.result?.name} variant='contained' color='primary' onClick={handleClick}>
                       {user?.result?.name ?  'comment' : 'Login To Post Comment'}
                   </Button>
                 </div>

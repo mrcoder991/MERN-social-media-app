@@ -122,18 +122,20 @@ const Post = ({ post, setCurrentId }) => {
           <Button
             size="small"
             color="primary"
-            disabled={!user?.result}
+          disabled={!user?.result}
+          disableElevation
             onClick={handleLike}>
             <Likes />
         </Button>
         
         {(user?.result.googleId === post?.creator || user?.result?._id === post?.creator) && (
-            <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+            <Button size="small" color="secondary" disableElevation onClick={() => dispatch(deletePost(post._id))}>
               <DeleteIcon fontSize="small" />
             </Button>
         )}
         <Button
           component={Link}
+          disableElevation
           to={`/posts/${post._id}`}
           size="small"
           color="primary">

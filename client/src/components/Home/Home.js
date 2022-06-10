@@ -77,7 +77,7 @@ const Home = () => {
                                 label='Search Tags'
                                 variant='outlined'
                             />
-                            <Button onClick={searchPost} className={classes.searchButton} color="primary" variant='contained'>Search</Button>
+                            <Button onClick={searchPost} className={classes.searchButton} color="primary" variant='contained' disableElevation>Search</Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
                         

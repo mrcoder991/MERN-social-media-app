@@ -4,10 +4,13 @@ import Modal from '../Modal'
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import useStyles from './Styles'
-import nonText from '../../images/nonText.png';
+import nonTextForLight from '../../images/nonTextForLight.png';
+import nonTextForDark from '../../images/nonTextForDark.png';
 import nonLogo from '../../images/nonLogo.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import * as actionType from '../../constants/actionTypes';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 
 
@@ -17,6 +20,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const classes = useStyles();
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
 
   // console.log(user);
@@ -64,7 +68,7 @@ const Navbar = () => {
     <AppBar className={classes.appBar} position="static" color="inherit">
       <Link to='/' className={classes.brandContainer}>
         <img src={nonLogo} alt='icon' height='40px'/>
-        <img className={classes.textImage} src={nonText} alt="icon" height="30px" />
+        <img className={classes.textImage} src={prefersDarkMode ? nonTextForDark : nonTextForLight} alt="icon" height="30px" />
       </Link>
       <Toolbar className={classes.toolbar}>
         <Modal/>
@@ -100,7 +104,7 @@ const Navbar = () => {
           </Menu>
         </Box>
         ) : (
-            <Button component={Link} to="/auth" variant="contained" color='primary'>Sign In</Button>
+            <Button  disableElevation component={Link} to="/auth" variant="contained" color='primary'>Sign In</Button>
         )}
         
       </Toolbar>

@@ -23,7 +23,7 @@ export default function BasicModal() {
 
     return (
         <div>
-            <Button gutter onClick={handleOpen}><Github />&nbsp; <strong>Contribute</strong></Button>
+            <Button gutter onClick={handleOpen} disableElevation><Github />  <strong> &nbsp; Contribute</strong></Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -42,7 +42,7 @@ export default function BasicModal() {
                         <br/>
                         <Link href="https://github.com/mrcoder991">- Uday Girhepunje </Link>  
                     </Typography>
-                    <Button component='a' variant='outlined' href='https://github.com/mrcoder991/MERN-social-media-app'><Github/>&nbsp; Github Repo</Button>
+                    <Button component='a' disableElevation variant='outlined' href='https://github.com/mrcoder991/MERN-social-media-app'><Github/> &nbsp; Github Repo</Button>
                 </Box>
             </Modal>
         </div>
