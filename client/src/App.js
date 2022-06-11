@@ -21,14 +21,27 @@ const App = () => {
         palette: {
           type: prefersDarkMode ? 'dark' : 'light',
           primary: {
-            main: '#00b294',
+            main: prefersDarkMode ? '#ffb4a8' : "#9c4236",
           },
           secondary: {
-            main: '#f44336',
+            main: prefersDarkMode ? '#e7b6c6' : "#775161",
           },
-          contrastThreshold: 3,
-          tonalOffset: 0.1,
-
+          background: {
+            default: prefersDarkMode ? '#201a19' : "#f7e4e1",
+            paper: prefersDarkMode ? '#2a2423' : "#ffdad4",
+          },
+          error: {
+            main: prefersDarkMode ? '#ffb4ab' : "#ba1a1a",
+          },
+          text: {
+            primary: prefersDarkMode ? '#d8c2be' : "#534341",
+          },
+        },
+        typography: {
+          fontFamily: "Lexend Deca",
+        },
+        shape: {
+          borderRadius: 10,
         },
       }),
     [prefersDarkMode],

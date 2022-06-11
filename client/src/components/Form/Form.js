@@ -97,25 +97,32 @@ const Form = ({ currentId, setCurrentId }) => {
                onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}
              />
            </div>
-           <Button
-             className={classes.buttonSubmit}
-             variant="contained"
-             color="primary"
-             size="large"
-             type="submit"
-             fullWidth
-             disableElevation>
-             Submit
-           </Button>
-           <Button
-             variant="contained"
-             color="secondary"
-             size="small"
-              onClick={clear}
-              disableElevation
-             fullWidth>
-             Clear
-           </Button>
+           <div className={classes.buttonGroup}>
+             <div>
+               <Button
+                 className={classes.buttonSubmit}
+                 variant="contained"
+                 color="primary"
+                //  size="large"
+                 type="submit"
+                //  fullWidth
+                 disableElevation>
+                 Post
+               </Button>
+             </div>
+             <div>
+               <Button
+                 variant="outlined"
+                 color="secondary"
+                //  size="small"
+                  onClick={clear}
+                  disableElevation
+                  // fullWidth
+                >
+                 Clear
+               </Button>
+             </div>
+           </div>
          </form>
        {/* </Paper> */}
       </AccordionDetails>

@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Box, Button, Typography, Modal, Divider, Link} from '@material-ui/core';
-import Github from './icons/github'
+import GithubForLight from './icons/githubForLight';
+import GithubForDark from './icons/githubForDark';
+
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 const style = {
     position: 'absolute',
@@ -20,10 +24,12 @@ export default function BasicModal() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
 
     return (
         <div>
-            <Button gutter onClick={handleOpen} disableElevation><Github />  <strong> &nbsp; Contribute</strong></Button>
+            <Button gutter onClick={handleOpen} disableElevation> {prefersDarkMode ? <GithubForDark/> : <GithubForLight/>} <strong> &nbsp; Contribute</strong></Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -42,7 +48,7 @@ export default function BasicModal() {
                         <br/>
                         <Link href="https://github.com/mrcoder991">- Uday Girhepunje </Link>  
                     </Typography>
-                    <Button component='a' disableElevation variant='outlined' href='https://github.com/mrcoder991/MERN-social-media-app'><Github/> &nbsp; Github Repo</Button>
+                    <Button component='a' disableElevation variant='outlined' href='https://github.com/mrcoder991/MERN-social-media-app'>{prefersDarkMode ? <GithubForDark/> : <GithubForLight/>} &nbsp; Github Repo</Button>
                 </Box>
             </Modal>
         </div>
