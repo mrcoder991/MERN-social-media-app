@@ -17,4 +17,7 @@ export default makeStyles((theme) => ({
       flexDirection: 'column-reverse',
     },
   },
+  homeContainer: {
+    padding:'0',
+  }
 }));
