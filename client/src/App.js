@@ -27,8 +27,8 @@ const App = () => {
             main: prefersDarkMode ? '#e7b6c6' : "#775161",
           },
           background: {
-            default: prefersDarkMode ? '#201a19' : "#f7e4e1",
-            paper: prefersDarkMode ? '#2a2423' : "#ffdad4",
+            default: prefersDarkMode ? '#201a19' : "#f9edea",
+            paper: prefersDarkMode ? '#2a2423' : "#f8e0dd",
           },
           error: {
             main: prefersDarkMode ? '#ffb4ab' : "#ba1a1a",

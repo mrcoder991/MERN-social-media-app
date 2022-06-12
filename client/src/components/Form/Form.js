@@ -41,7 +41,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   if (!user?.result?.name) {
     return ( 
-    <Paper className={classes.paper} elevation={6}>
+    <Paper className={classes.paper} elevation={2}>
       <Typography variant='h6' align='center' style={{padding:'0.5em'}}>
         Please Sign in to create new post and like other's posts.
       </Typography>
@@ -51,7 +51,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   return (
 
-    <Paper  className={classes.paper} elevation={6}>
+    <Paper className={classes.paper} elevation={2}>
       <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}

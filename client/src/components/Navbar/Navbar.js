@@ -65,7 +65,7 @@ const Navbar = () => {
   
 
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
+    <AppBar className={classes.appBar} position="static" color="inherit" elevation={2}>
       <Link to='/' className={classes.brandContainer}>
         <img src={nonLogo} alt='icon' height='40px'/>
         <img className={classes.textImage} src={prefersDarkMode ? nonTextForDark : nonTextForLight} alt="icon" height="30px" />

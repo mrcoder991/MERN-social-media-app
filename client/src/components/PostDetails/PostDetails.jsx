@@ -35,7 +35,7 @@ const PostDetails = () => {
 
   if (isLoading) {
     return (
-      <Paper elevation={6} className={classes.loadingPaper}>
+      <Paper elevation={2} className={classes.loadingPaper}>
         <CircularProgress size="5em" />
       </Paper>
     );
@@ -44,7 +44,8 @@ const PostDetails = () => {
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
 
   return (
-    <Paper style={{ padding: "20px", borderRadius: "15px", margin:'100px 0 12px'}} elevation={6}>
+    <>
+    <Paper style={{ padding: "20px", borderRadius: "15px", margin:'100px 0 12px'}} elevation={2}>
       <div className={classes.card}>
         <div className={classes.section}>
           <Typography gutterBottom variant="h6" component="h2"><strong>{post.title}</strong></Typography>
@@ -71,33 +72,26 @@ const PostDetails = () => {
           />
         </div>
       </div>
-      {!!recommendedPosts.length && (
-        <div className={classes.section}>
-          <Typography gutterBottom variant="h5">
-            You might also like:
-          </Typography>
-          <Divider />
-          <div className={classes.recommendedPosts}>
-            {/* {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-              <div style={{ margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
-                <Typography gutterBottom variant="h6">{title}</Typography>
-                <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                <img src={selectedFile} width="200px" />
-              </div>
-            ))} */}
-            <Grid className={classes.container} container alignItems="stretch" spacing={3}>
-            {recommendedPosts.map((post) => (
-              <Grid key={post._id} item xs={12} sm={12} md={3}>
-                <Post post={post} />
-              </Grid>
-            ))}
-            </Grid>
-          </div>
-        </div>
-      )}
     </Paper>
+    {!!recommendedPosts.length && (
+      <div className={classes.section}>
+        <Typography gutterBottom variant="h5">
+          You might also like:
+        </Typography>
+        <Divider />
+        <div className={classes.recommendedPosts}>
+          <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+          {recommendedPosts.map((post) => (
+            <Grid key={post._id} item xs={12} sm={12} md={3}>
+              <Post post={post} />
+            </Grid>
+          ))}
+          </Grid>
+        </div>
+      </div>
+  )
+  }
+  </>
   );
 };
 
