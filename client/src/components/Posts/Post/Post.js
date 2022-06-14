@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, Avatar, CardHeader,IconButton } from '@material-ui/core/';
+import React, { useState } from 'react';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Avatar, CardHeader, IconButton, MenuItem, Menu } from '@material-ui/core/';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -17,9 +17,23 @@ const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
   const [likes, setLikes] = useState(post?.likes)
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const userId = user?.result.googleId || user?.result?._id;
   const hasLikedPost = post.likes.find((like) => like === userId);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleEdit = () => {
+    setCurrentId(post._id)
+    handleClose();
+  }
 
   const handleLike = async () => {
     dispatch(likePost(post._id));
@@ -35,7 +49,7 @@ const Post = ({ post, setCurrentId }) => {
     if (likes.length > 0) {
       return likes.find((like) => like === userId)
         ? (
-          <><ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}` }</>
+          <><ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}</>
         ) : (
           <><ThumbUpAltOutlined fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}</>
         );
@@ -46,48 +60,6 @@ const Post = ({ post, setCurrentId }) => {
 
 
   return (
-    // <Card className={classes.card} raised elevation={2}>
-      
-
-    //     <CardMedia component={Link} to={`/posts/${post._id}`} className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
-    //     <div className={classes.overlay}>
-    //       <Typography variant="h6">{post.name}</Typography>
-    //       <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
-    //     </div>
-
-    //     {(user?.result.googleId === post?.creator || user?.result?._id === post?.creator) && (
-    //       <div className={classes.overlay2}>
-    //         <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}><MoreHorizIcon fontSize="medium" /></Button>
-    //       </div>
-    //     )}
-    //     <div className={classes.details}>
-    //       <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
-    //     </div>
-    //     <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
-    //     <CardContent>
-    //       <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
-    //     </CardContent>
-      
-    //     <CardActions className={classes.cardActions}>
-
-    //       <Button
-    //         size="small"
-    //         color="primary"
-    //         disabled={!user?.result}
-    //         onClick={handleLike}>
-    //         <Likes />
-    //       </Button>
-
-    //       {(user?.result.googleId === post?.creator || user?.result?._id === post?.creator) && (
-    //         <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-    //           <DeleteIcon fontSize="small" />
-    //         </Button>
-    //       )}
-
-    //     </CardActions>
-    // </Card>
-
-
     <Card className={classes.card} raised elevation={2}>
       <div>
         <CardHeader
@@ -96,9 +68,30 @@ const Post = ({ post, setCurrentId }) => {
           }
           action={
             (user?.result.googleId === post?.creator || user?.result?._id === post?.creator) && (
-            <IconButton aria-label="edit post" onClick={() => setCurrentId(post._id)}>
-              <MoreVertIcon />
-              </IconButton>
+              <div>
+                <IconButton aria-label="edit post" onClick={handleClick}>
+                  <MoreVertIcon />
+                </IconButton>
+
+                <Menu
+                  id="demo-positioned-menu"
+                  aria-labelledby="demo-positioned-button"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                >
+                  <MenuItem onClick={handleEdit}>Edit Notion</MenuItem>
+                  <MenuItem onClick={() => dispatch(deletePost(post._id))}>Delete Notion</MenuItem>
+                </Menu>
+              </div>
             )
           }
           title={post.name}
@@ -113,44 +106,28 @@ const Post = ({ post, setCurrentId }) => {
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">{post.title}</Typography>
           {/* <div className={classes.message}> */}
-            <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
           {/* </div> */}
           <Typography variant="caption" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
         </CardContent>
       </div>
-      <CardActions  className={classes.cardActions}>
-          <Button
-            size="small"
-            color="primary"
+      <CardActions className={classes.cardActions}>
+        <Button
+          size="small"
+          color="primary"
           disabled={!user?.result}
           disableElevation
-            onClick={handleLike}>
-            <Likes />
+          onClick={handleLike}>
+          <Likes />
         </Button>
-        
-        {(user?.result.googleId === post?.creator || user?.result?._id === post?.creator) && (
-            <Button size="small" color="secondary" disableElevation onClick={() => dispatch(deletePost(post._id))}>
-              <DeleteIcon fontSize="small" />
-            </Button>
-        )}
         <Button
           component={Link}
           disableElevation
           to={`/posts/${post._id}`}
           size="small"
           color="primary">
-          <Comment/>
+          <Comment />
         </Button>
-
-        {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore> */}
-
       </CardActions>
     </Card>
   );
