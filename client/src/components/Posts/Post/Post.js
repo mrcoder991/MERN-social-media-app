@@ -3,7 +3,6 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography, Avatar, 
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Comment from '@material-ui/icons/Comment';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
@@ -97,12 +96,15 @@ const Post = ({ post, setCurrentId }) => {
           title={post.name}
           subheader={moment(post.createdAt).fromNow()}
         />
-        <CardMedia
-          component={Link}
-          to={`/posts/${post._id}`}
-          className={classes.media}
-          image={`${post.selectedFile}?tr=w-800` || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'}
-          title={post.title} />
+        <Link to={`/posts/${post._id}`}>
+          <CardMedia
+            component='img'
+            loading = 'Lazy'
+            src={`${post.selectedFile}?tr=w-800,h-800` || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'}
+            className={classes.media}
+            title={post.title}
+          />
+        </Link>
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">{post.title}</Typography>
           {/* <div className={classes.message}> */}

@@ -1,16 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { deepPurple } from '@material-ui/core/colors';
 
+
 export default makeStyles((theme) => ({
   appBar: {
-    // borderRadius: 15,
-    // margin: '30px 0',
     position: 'fixed',
     top: '0',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: theme.type === 'dark' ? 'rgba(42, 36, 35, 0.85)' : 'rgba(248, 224, 221, 0.85)',
+    backdropFilter: 'blur(20px)',
     padding: '5px 20px',
     [theme.breakpoints.down('sm')]: {
       padding:'0.5em 1em'
