@@ -1,0 +1,42 @@
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #242634;
+    color: #fff;
+  }
+  
+  .loader img {
+    width: 20vw;
+    margin-bottom: 2em;
+    animation: slide-fwd-top 1s cubic-bezier(0.39, 0.575, 0.565, 1) infinite
+      alternate;
+  }
+  
+  @keyframes slide-fwd-top {
+    0% {
+      transform: translateZ(0) translateY(0);
+    }
+    100% {
+      transform: translateZ(160px) translateY(-100px);
+    }
+  }
+  
+  .disappear {
+    animation: vanish 1 forwards;
+  }
+  
+  @keyframes vanish {
+    100% {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+  
