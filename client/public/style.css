@@ -11,13 +11,13 @@
     justify-content: center;
     background-color: #242634;
     color: #fff;
+    z-index: 10;
   }
   
   .loader img {
     width: 20vw;
     margin-bottom: 2em;
-    animation: slide-fwd-top 1s cubic-bezier(0.39, 0.575, 0.565, 1) infinite
-      alternate;
+    animation: slide-fwd-top 1s cubic-bezier(0.39, 0.575, 0.565, 1) infinite alternate;
   }
   
   @keyframes slide-fwd-top {
@@ -36,7 +36,7 @@
   @keyframes vanish {
     100% {
       visibility: hidden;
-      opacity: 0;
+      display: none;
     }
   }
   

@@ -13,6 +13,7 @@ const Paginate = ({ page }) => {
     
     useEffect(() => {
         if (page) {
+            window.scroll(0, 0);
             dispatch(getPosts(page));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

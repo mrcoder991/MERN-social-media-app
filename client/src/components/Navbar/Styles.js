@@ -13,6 +13,7 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.palette.type === 'dark' ? 'rgba(42, 36, 35, 0.85)' : 'rgba(248, 224, 221, 0.85)',
     backdropFilter: 'blur(20px)',
     padding: '5px 20px',
+    zIndex: "9",
     [theme.breakpoints.down('sm')]: {
       padding:'0.5em 1em'
     },
