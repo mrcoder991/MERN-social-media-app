@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
         <Container className={classes.PolicyContainer}>
             <Paper className={classes.ContentPaper}>
                 <h1>Privacy Policy for Notion of Netizen</h1>
-                <p>At Notion of Netizen MESCOE , accessible from <a href="https://notionofnetizen.herokuapp.com">https://notionofnetizen.herokuapp.com</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Notion of Netizen MESCOE  and how we use it.</p>
+                <p>At Notion of Netizen MESCOE, accessible from <a href="https://notionofnetizen.herokuapp.com">https://notionofnetizen.herokuapp.com</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Notion of Netizen MESCOE  and how we use it.</p>
                 <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>
                 <p>This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in Notion of Netizen MESCOE . This policy is not applicable to any information collected offline or via channels other than this website.</p>
             </Paper>
