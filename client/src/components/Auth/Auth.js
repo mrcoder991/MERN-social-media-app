@@ -1,10 +1,9 @@
 import React,{useState} from "react";
-import { Avatar, Button, Paper, Grid, Typography, Container } from "@material-ui/core";
+import { Avatar, Button, Paper, Grid, Typography, Container, FormControlLabel, Checkbox } from "@material-ui/core";
 import {GoogleLogin} from 'react-google-login'
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import useStyles from "./Styles";
 import Input from "./Input";
 import Icon from "./Icon";
@@ -16,7 +15,8 @@ const Auth = () => {
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false)
     const [isSignUp, setIsSignUp] = useState(false);
-    const [formData, setFormData] = useState(initialState)
+    const [formData, setFormData] = useState(initialState);
+    const [checked, setChecked] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -35,6 +35,10 @@ const Auth = () => {
             [e.target.name]: e.target.value
         })
     };
+
+    const handleCheck = (event) => {
+        setChecked(!checked);
+      };
     
     const switchMode = () => setIsSignUp((isSignUp) => !isSignUp);;
     
@@ -106,7 +110,20 @@ const Auth = () => {
                             />
                         }
                     </Grid>
-                    <Button type="submit" fullWidth variant='contained' color='primary' className={classes.submit} disableElevation>
+                    {isSignUp && <Grid>
+                        <FormControlLabel
+                            control={
+                            <Checkbox
+                                checked={checked}
+                                onChange={handleCheck}
+                                name="checkedB"
+                                color="primary"
+                            />
+                            }
+                            label={<Typography>I have read and agree to  <Link to='/privacypolicy'>Privacy Policy</Link></Typography>}
+                        />
+                    </Grid>}
+                    <Button type="submit" fullWidth variant='contained' color='primary' className={classes.submit} disabled={!checked && isSignUp} disableElevation>
                         {isSignUp ? 'Sign Up' : 'Sign In'}
                     </Button>
                     <GoogleLogin
