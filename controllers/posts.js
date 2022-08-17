@@ -67,10 +67,11 @@ export const createPost = async (req, res) => {
 
     var base64Img = post.selectedFile;
 
-    const uploadResponse_base64 = await uploadFileBase64(imagekit, base64Img, `${post.title}`, post.tags);               
-    // console.log(uploadResponse_base64.url)
+    const uploadResponse_base64 = await uploadFileBase64(imagekit, base64Img, `${post.title}`, post.tags);
 
-    const newPost = new PostMessage({ ...post, creator: req.userId, selectedFile:uploadResponse_base64.url, selectedFileId:uploadResponse_base64.fileId,  createdAt: new Date().toISOString() });
+    console.log(req.creatorImg);
+
+    const newPost = new PostMessage({ ...post, creator: req.userId, creatorImg:req.creatorImg, selectedFile:uploadResponse_base64.url, selectedFileId:uploadResponse_base64.fileId,  createdAt: new Date().toISOString() });
 
     try {
         await newPost.save()

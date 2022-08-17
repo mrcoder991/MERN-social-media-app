@@ -1,13 +1,13 @@
-import React,{useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Button, Paper, Grid, Typography, Container, FormControlLabel, Checkbox } from "@material-ui/core";
-import {GoogleLogin} from 'react-google-login'
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import useStyles from "./Styles";
 import Input from "./Input";
-import Icon from "./Icon";
-import {signin, signup} from '../../actions/auth'
+// import Icon from "./Icon";
+import { signin, signup } from '../../actions/auth';
+import jwt_decode from 'jwt-decode';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -20,12 +20,30 @@ const Auth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        /* global google */
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: '74117768345-1ui9u3cp9db7vkegavpv4impvpc8tm2r.apps.googleusercontent.com',
+                callback: googleSuccess
+            });
+            google.accounts.id.prompt();
+        }
+
+        google.accounts.id.renderButton(
+            document.getElementById('signInDiv'),
+            {theme: 'outline', size: 'large'}
+        )
+
+    }, [])
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (isSignUp) {
             dispatch(signup(formData, navigate))
         } else {
-            dispatch(signin(formData, navigate)) 
+            dispatch(signin(formData, navigate))
         }
     };
 
@@ -38,32 +56,34 @@ const Auth = () => {
 
     const handleCheck = (event) => {
         setChecked(!checked);
-      };
-    
+    };
+
     const switchMode = () => setIsSignUp((isSignUp) => !isSignUp);;
-    
+
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
-    
+
     const googleSuccess = async (res) => {
-        const result = res?.profile;
-        const token = res?.tokenId;
+        const actualRes = jwt_decode(res.credential);
+        console.log(actualRes);
+        const result = actualRes;
+        const token = res?.credential;
 
         try {
             dispatch({ type: 'AUTH', data: { result, token } });
-            
+
             navigate('/');
         } catch (error) {
             console.log(error)
         }
     };
 
-    const googleFailure = (error) => {
-        console.log('Google sign in was unsuccessfull. Try Again later');
-        console.log(error)
-    };
-    
+    // const googleFailure = (error) => {
+    //     console.log('Google sign in was unsuccessfull. Try Again later');
+    //     console.log(error)
+    // };
+
     return (
-        <Container component="main" maxWidth="xs" style={{marginTop:'100px'}}>
+        <Container component="main" maxWidth="xs" style={{ marginTop: '100px' }}>
             <Paper className={classes.paper} elevation={2}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
@@ -103,22 +123,22 @@ const Auth = () => {
                         />
                         {isSignUp &&
                             <Input
-                            name='confirmPassword'
-                            label='Repeat Password'
-                            handleChange={handleChange}
-                            type='password'
+                                name='confirmPassword'
+                                label='Repeat Password'
+                                handleChange={handleChange}
+                                type='password'
                             />
                         }
                     </Grid>
                     {isSignUp && <Grid>
                         <FormControlLabel
                             control={
-                            <Checkbox
-                                checked={checked}
-                                onChange={handleCheck}
-                                name="checkedB"
-                                color="primary"
-                            />
+                                <Checkbox
+                                    checked={checked}
+                                    onChange={handleCheck}
+                                    name="checkedB"
+                                    color="primary"
+                                />
                             }
                             label={<Typography>I have read and agree to  <Link to='/privacypolicy'>Privacy Policy</Link></Typography>}
                         />
@@ -126,30 +146,11 @@ const Auth = () => {
                     <Button type="submit" fullWidth variant='contained' color='primary' className={classes.submit} disabled={!checked && isSignUp} disableElevation>
                         {isSignUp ? 'Sign Up' : 'Sign In'}
                     </Button>
-                    <GoogleLogin
-                        clientId="74117768345-1ui9u3cp9db7vkegavpv4impvpc8tm2r.apps.googleusercontent.com"
-                        render={(renderProps) => (
-                            <Button
-                                className={classes.googleButton}
-                                // color='primary'
-                                fullWidth
-                                onClick={renderProps.onClick}
-                                // disabled={renderProps.disabled}
-                                disabled={true}
-                                startIcon={<Icon />}
-                                variant='contained'
-                                disableElevation
-                            >Sign In With Google
-                            </Button>
-                        )}
-                        onSuccess={googleSuccess}
-                        onFailure={googleFailure}
-                        cookiePolicy={'single_host_origin'}
-                    />
+                    <div id='signInDiv'></div>
                     <Grid container justifyContent='flex-end'>
                         <Grid item>
                             <Button disableElevation onClick={switchMode}>
-                            {isSignUp ? 'Already have an Account? Sign In' : "Don't have an Account? Sign Up"}
+                                {isSignUp ? 'Already have an Account? Sign In' : "Don't have an Account? Sign Up"}
                             </Button>
                         </Grid>
                     </Grid>

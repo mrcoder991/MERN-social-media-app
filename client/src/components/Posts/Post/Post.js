@@ -18,7 +18,7 @@ const Post = ({ post, setCurrentId }) => {
   const [likes, setLikes] = useState(post?.likes)
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const userId = user?.result.googleId || user?.result?._id;
+  const userId = user?.result.sub || user?.result?._id;
   const hasLikedPost = post.likes.find((like) => like === userId);
   const open = Boolean(anchorEl);
 
@@ -63,10 +63,10 @@ const Post = ({ post, setCurrentId }) => {
       <div>
         <CardHeader
           avatar={
-            <Avatar className={classes.purple} alt={post.name} src={user?.result?.imageUrl}>{post?.name?.charAt(0)}</Avatar>
+            <Avatar className={classes.purple} alt={post.name} src={post?.creatorImg}>{post?.name?.charAt(0)}</Avatar>
           }
           action={
-            (user?.result.googleId === post?.creator || user?.result?._id === post?.creator) && (
+            (user?.result.sub === post?.creator || user?.result?._id === post?.creator) && (
               <div>
                 <IconButton aria-label="edit post" onClick={handleClick}>
                   <MoreVertIcon />

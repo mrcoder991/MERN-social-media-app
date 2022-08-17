@@ -30,7 +30,7 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
+      dispatch(createPost({ ...postData, name: user?.result?.name, creatorImg:user?.result.picture }, navigate));
       
       clear();
     } else {
