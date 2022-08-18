@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
@@ -7,6 +7,7 @@ import useStyles from './styles';
 import Pagination from '../Pagination';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
+import jwt_decode from 'jwt-decode';
 
 import { getPostsBySearch } from '../../actions/posts';
 
@@ -24,6 +25,33 @@ const Home = () => {
     const navigate = useNavigate();
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery')
+
+
+    const googleSuccess = async (res) => {
+        const actualRes = jwt_decode(res.credential);
+        console.log(actualRes);
+        const result = actualRes;
+        const token = res?.credential;
+
+        try {
+            dispatch({ type: 'AUTH', data: { result, token } });
+            navigate('/');
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+
+
+    useEffect(() => {
+        /* global google */
+        google.accounts.id.initialize({
+            client_id: '74117768345-1ui9u3cp9db7vkegavpv4impvpc8tm2r.apps.googleusercontent.com',
+            callback: googleSuccess
+        });
+        google.accounts.id.prompt();
+        // eslint-disable-next-line
+    }, [])
 
 
     const searchPost = () => {
@@ -49,11 +77,11 @@ const Home = () => {
         setTags(tags.filter((tag) => tag !== tagToDelete));
     };
 
-    
+
 
     return (
         <Grow in>
-            <Container className={classes.homeContainer} maxWidth='xl' style={{margin:'100px 0 20px'}}>
+            <Container className={classes.homeContainer} maxWidth='xl' style={{ margin: '100px 0 20px' }}>
                 <Grid container className={classes.gridContainer} justifyContent="space-between" alignItems="stretch" spacing={3}>
                     <Grid item xs={12} sm={6} md={9}>
                         <Posts setCurrentId={setCurrentId} />
@@ -80,13 +108,13 @@ const Home = () => {
                             <Button onClick={searchPost} className={classes.searchButton} color="primary" variant='contained' disableElevation>Search</Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        
+
                     </Grid>
                 </Grid>
                 {(!searchQuery && !tags.length) && (
-                        <Paper className={classes.pagination} elevation={2}>
-                                <Pagination page={page}/>
-                        </Paper>
+                    <Paper className={classes.pagination} elevation={2}>
+                        <Pagination page={page} />
+                    </Paper>
                 )}
             </Container>
         </Grow>

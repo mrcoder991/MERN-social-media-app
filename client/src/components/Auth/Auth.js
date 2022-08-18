@@ -20,20 +20,21 @@ const Auth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+
     useEffect(() => {
         /* global google */
-        window.onload = function () {
-            google.accounts.id.initialize({
-                client_id: '74117768345-1ui9u3cp9db7vkegavpv4impvpc8tm2r.apps.googleusercontent.com',
-                callback: googleSuccess
-            });
-            google.accounts.id.renderButton(
-                document.getElementById('signInDiv'),
-                { theme: 'outline', size: 'large', shape:'pill', logo_alignment: 'center', width:'100%'}
-            )
-            google.accounts.id.prompt();
-        }
+        google.accounts.id.initialize({
+            client_id: '74117768345-1ui9u3cp9db7vkegavpv4impvpc8tm2r.apps.googleusercontent.com',
+            callback: googleSuccess
+        });
+        google.accounts.id.prompt();
+        google.accounts.id.renderButton(
+            document.getElementById('signInDiv'),
+            { theme: 'outline', size: 'large', shape: 'pill', logo_alignment: 'center', width: '100%' }
+        )
     }, [])
+
+
 
 
 
