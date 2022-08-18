@@ -27,15 +27,15 @@ const Auth = () => {
                 client_id: '74117768345-1ui9u3cp9db7vkegavpv4impvpc8tm2r.apps.googleusercontent.com',
                 callback: googleSuccess
             });
+            google.accounts.id.renderButton(
+                document.getElementById('signInDiv'),
+                { theme: 'outline', size: 'large', shape:'pill', logo_alignment: 'center', width:'100%'}
+            )
             google.accounts.id.prompt();
         }
-
-        google.accounts.id.renderButton(
-            document.getElementById('signInDiv'),
-            {theme: 'outline', size: 'large'}
-        )
-
     }, [])
+
+
 
 
     const handleSubmit = (e) => {
@@ -146,7 +146,12 @@ const Auth = () => {
                     <Button type="submit" fullWidth variant='contained' color='primary' className={classes.submit} disabled={!checked && isSignUp} disableElevation>
                         {isSignUp ? 'Sign Up' : 'Sign In'}
                     </Button>
-                    <div id='signInDiv'></div>
+
+                    {/* Google login Button */}
+                    <Grid container justifyContent='center' className={classes.googleButton}>
+                        <Button fullWidth disableElevation id='signInDiv'></Button>
+                    </Grid>
+
                     <Grid container justifyContent='flex-end'>
                         <Grid item>
                             <Button disableElevation onClick={switchMode}>
