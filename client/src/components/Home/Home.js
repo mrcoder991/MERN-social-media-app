@@ -30,7 +30,6 @@ const Home = () => {
 
     const googleSuccess = async (res) => {
         const actualRes = jwt_decode(res.credential);
-        console.log(actualRes);
         const result = actualRes;
         const token = res?.credential;
 
