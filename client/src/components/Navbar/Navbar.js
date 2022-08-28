@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Avatar, Button, Toolbar, Typography,MenuItem, Box, Tooltip,Menu,IconButton  } from '@material-ui/core';
+import { AppBar, Avatar, Button, Toolbar, Typography, Box, Tooltip, IconButton, Popover, Divider } from '@material-ui/core';
 import Modal from '../Modal'
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
@@ -41,75 +41,81 @@ const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem('profile')))
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
- 
-    // const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-  
-    // const handleOpenNavMenu = (event) => {
-    //   setAnchorElNav(event.currentTarget);
-    // };
-    const handleOpenUserMenu = (event) => {
-      setAnchorElUser(event.currentTarget);
-    };
-  
-    // const handleCloseNavMenu = () => {
-    //   setAnchorElNav(null);
-    // };
-  
-    const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
-    };
-  
+
+  // const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  // const handleOpenNavMenu = (event) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const open = Boolean(anchorElUser);
+  const id = open ? 'simple-popover' : undefined;
+
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit" elevation={2}>
       <Link to='/' className={classes.brandContainer}>
-        <img src={nonLogo} alt='icon' height='40px'/>
+        <img src={nonLogo} alt='icon' height='40px' />
         <img className={classes.textImage} src={prefersDarkMode ? nonTextForDark : nonTextForLight} alt="icon" height="30px" />
       </Link>
       <Toolbar className={classes.toolbar}>
-        <Modal/>
+        <Modal />
         {user ? (
           <Box sx={{ flexGrow: 0 }}>
-          <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar className={classes.purple} alt={user?.result?.name} src={user?.result?.picture}>{user?.result?.name?.charAt(0)}</Avatar>
-            </IconButton>
-          </Tooltip>
-          <Menu
-            sx={{ mt: '45px' }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            <MenuItem onClick={handleCloseUserMenu}>
-            <Typography >{user?.result?.name}</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography onClick={logout} textalign="center">Logout</Typography>
-            </MenuItem>
-          </Menu>
-        </Box>
+            <Tooltip title="Open settings">
+              <IconButton aria-describedby={id} onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar className={classes.purple} alt={user?.result?.name} src={user?.result?.picture}>{user?.result?.name?.charAt(0)}</Avatar>
+              </IconButton>
+            </Tooltip>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorElUser}
+              onClose={handleCloseUserMenu}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <div className={classes.userMenu}>
+                <div className={classes.userMenuItem}>
+                  <Avatar style={{margin:'0.5em'}} className={classes.purple} alt={user?.result?.name} src={user?.result?.picture}>{user?.result?.name?.charAt(0)}</Avatar>
+                  <Typography variant="subtitle1"><b>{user?.result?.name}</b></Typography>
+                  <Typography variant='body2'>{user?.result?.email}</Typography>
+                </div>
+                <Divider className={classes.divider}/>
+                <div className={classes.userMenuItem}>
+                  <Button disableElevation onClick={logout} size="small" variant="outlined">Log out</Button>
+                </div>
+              </div>
+            </Popover>
+          </Box>
         ) : (
-            <Button  disableElevation component={Link} to="/auth" variant="contained" color='primary'>Sign In</Button>
+          <Button disableElevation component={Link} to="/auth" variant="contained" color='primary'>Sign In</Button>
         )}
-        
+
       </Toolbar>
 
-      </AppBar>
+    </AppBar>
   )
 }
 

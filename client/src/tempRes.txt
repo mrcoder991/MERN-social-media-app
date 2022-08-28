@@ -12,3 +12,29 @@ name: "Uday Girhepunje"
 nbf: 1660760205
 picture: "https://lh3.googleusercontent.com/a-/AFdZuco5O53csonIdmUSXG4_1gYOhQbjdqDMUnEo8XC28w=s96-c"
 sub: "105568768616772199642"
+
+
+<Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            <MenuItem onClick={handleCloseUserMenu}>
+            {/* <Typography >{user?.result?.name}</Typography> */}
+              <img src="https://www.mecgale.com/wp-content/uploads/2017/08/dummy-profile.png" alt="" />
+            </MenuItem>
+            <MenuItem onClick={handleCloseUserMenu}>
+              <Typography onClick={logout} textalign="center">Logout</Typography>
+            </MenuItem>
+          </Menu>

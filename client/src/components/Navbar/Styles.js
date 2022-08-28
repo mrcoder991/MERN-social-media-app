@@ -15,7 +15,7 @@ export default makeStyles((theme) => ({
     padding: '5px 20px',
     zIndex: "9",
     [theme.breakpoints.down('sm')]: {
-      padding:'0.5em 1em'
+      padding: '0.5em 1em'
     },
   },
   heading: {
@@ -32,11 +32,12 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
+    padding:'0',
     width: '100%',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
     },
-    gap:'1em',
+    gap: '1em',
   },
   profile: {
     display: 'flex',
@@ -64,5 +65,18 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+  },
+  userMenu: {
+    width: '320px',
+  },
+  userMenuItem: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  divider: {
+    width: '100%',
   },
 }));
