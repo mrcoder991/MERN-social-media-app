@@ -18,8 +18,12 @@ export default makeStyles((theme) => ({
     
   },
   fileInput: {
-    width: '97%',
-    margin: '10px 0',
+    width: '95%',
+    border: '1px solid',
+    borderRadius: theme.shape.borderRadius,
+    overflow: 'hidden',
+    marginBottom:'10px'
+    
   },
   buttonSubmit: {
     marginBottom: 10,
@@ -27,6 +31,15 @@ export default makeStyles((theme) => ({
   buttonGroup: {
     display: 'flex',
     justifyContent: 'space-between',
-    width:'97%'
+    width: '95%',
+    margin: '10px 0',
+
+  },
+  selectedFile: {
+    width: '100%',
+    aspectRatio: 1 / 1,
+    objectFit: 'cover',
+    transform: 'scale(1.05) translateY(4px)',
+    cursor: 'pointer'
   },
 }));

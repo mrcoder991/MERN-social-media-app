@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
+import React, { useState, useEffect, useRef } from 'react';
+import { TextField, Button, Typography, Paper, Accordion, AccordionSummary, AccordionDetails, Card, CardActionArea } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { useDispatch, useSelector } from 'react-redux';
-import FileBase from 'react-file-base64';
 
 import { useNavigate } from 'react-router-dom';
 import useStyles from './styles';
 import { createPost, updatePost } from '../../actions/posts';
+
+import placeholderImg from '../../images/PlaceholderImg.png'
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' });
@@ -15,6 +16,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('profile'));
+  const fileUploadRef = useRef();
 
 
   useEffect(() => {
@@ -39,6 +41,28 @@ const Form = ({ currentId, setCurrentId }) => {
     }
   };
 
+  
+  //Function to convert file into base64 string
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      fileReader.onerror = (error) => {
+        reject(error);
+      }
+    })
+  }
+  
+  //Function to handle file read
+  const handleFileRead = async (event) => {
+    const file = event.target.files[0]
+    const base64 = await convertBase64(file)
+    setPostData({ ...postData, selectedFile: base64 })
+  }
+
   if (!user?.result?.name) {
     return ( 
     <Paper className={classes.paper} elevation={2}>
@@ -62,7 +86,28 @@ const Form = ({ currentId, setCurrentId }) => {
       </AccordionSummary>
       <AccordionDetails>
        {/* <Paper className={classes.paper}> */}
-         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+          <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+          <Card className={classes.fileInput}>
+              <CardActionArea>
+                <input
+                hidden
+                ref={fileUploadRef}
+                id="originalFileName"
+                type="file"
+                accept='image/*'
+                required
+                label="Document"
+                name="originalFileName"
+                onChange={e => handleFileRead(e)}
+              />
+              <img
+                onClick={() => fileUploadRef.current.click()}
+                className={classes.selectedFile}
+                alt="placeholder-img"
+                src={postData?.selectedFile || placeholderImg }
+              />
+              </CardActionArea>
+           </Card>
            <TextField
              name="title"
              variant="outlined"
@@ -84,19 +129,11 @@ const Form = ({ currentId, setCurrentId }) => {
            <TextField
              name="tags"
              variant="outlined"
-             label="Tags (coma separated)"
+             label="Tags (Coma saperated)"
              fullWidth value={postData.tags}
              onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
            />
-           <div
-             className={classes.fileInput}>
-             <FileBase
-               type="file"
-               inputProps={{accept : "image/*"}}
-               multiple={false}
-               onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}
-             />
-           </div>
+           
            <div className={classes.buttonGroup}>
              <div>
                <Button
@@ -121,8 +158,8 @@ const Form = ({ currentId, setCurrentId }) => {
            </div>
          </form>
        {/* </Paper> */}
-      </AccordionDetails>
-        </Accordion>
+       </AccordionDetails>
+      </Accordion>
     </Paper>
 
   );
