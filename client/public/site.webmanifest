@@ -1,6 +1,7 @@
 {
   "name": "Notion of Netizen | MESCOE",
   "short_name": "NoN-MESCOE",
+  "description": "Notion of Netizen is a social media app for the students of MESCOE Pune, created by developers at MESCOE",
   "icons": [
     {
       "src": "/Icons/android-chrome-36x36.png",
@@ -31,8 +32,7 @@
     {
       "src": "/Icons/android-chrome-144x144-any.png",
       "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "/Icons/android-chrome-192x192.png",
@@ -43,8 +43,7 @@
     {
       "src": "/Icons/android-chrome-192x192-any.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "/Icons/android-chrome-256x256.png",
@@ -55,8 +54,7 @@
     {
       "src": "/Icons/android-chrome-256x256-any.png",
       "sizes": "256x256",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "/Icons/android-chrome-384x384.png",
@@ -67,8 +65,7 @@
     {
       "src": "/Icons/android-chrome-384x384-any.png",
       "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "/Icons/android-chrome-512x512.png",
@@ -79,12 +76,35 @@
     {
       "src": "/Icons/android-chrome-512x512-any.png",
       "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/Screenshots/Screenshot1.png",
       "type": "image/png",
-      "purpose": "any"
+      "sizes": "1920x1080"
+    },
+    {
+      "src": "/Screenshots/Screenshot2.jpg",
+      "type": "image/jpg",
+      "sizes": "1920x1080"
+    },
+    {
+      "src": "/Screenshots/Screenshot3.png",
+      "type": "image/png",
+      "sizes": "1920x1080"
+    },
+    {
+      "src": "/Screenshots/Screenshot4.jpg",
+      "type": "image/jpg",
+      "sizes": "1920x1080"
     }
   ],
   "theme_color": "#9c4236",
   "background_color": "#242634",
   "start_url": "/",
-  "display": "standalone"
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait"
 }
