@@ -9,7 +9,7 @@ For backed server
 ```
 Navigate to client directory
 ```bash
-   cd client
+  cd client
 ```
 For frontend application
 ```bash
