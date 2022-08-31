@@ -39,7 +39,7 @@ export const getPost = async (req, res) => {
 export const getPosts = async (req, res) => {
     const { page } = req.query;
     try {
-        const LIMIT = 9;
+        const LIMIT = 12;
         const startIndex = (Number(page) - 1) * LIMIT;
         const total = await PostMessage.countDocuments({});
 
@@ -55,7 +55,7 @@ export const getPostsBySearch = async (req, res) => {
     const { searchQuery, tags } = req.query;
     try {
         const title = new RegExp(searchQuery, 'i');
-        const posts = await PostMessage.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] });
+        const posts = await PostMessage.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] }).sort({ _id: -1 });
         res.json({ data: posts })
     } catch (error) {
         res.status(404).json({ message: error.message });

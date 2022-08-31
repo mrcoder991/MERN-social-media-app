@@ -17,47 +17,38 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
   const classes = useStyles();
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
-
-  // console.log(user);
-
+  //Function to logout user
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
     navigate('/auth');
     setUser(null);
   };
 
-  useEffect(() => {
-    const token = user?.token;
 
-    if (token) {
-      const decodedToken = decode(token);
+  //Logs out user if the jwt token expires
+  // useEffect(() => {
+  //   const token = user?.token;
 
-      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-    }
+  //   if (token) {
+  //     const decodedToken = decode(token);
 
-    setUser(JSON.parse(localStorage.getItem('profile')))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location])
+  //     if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+  //   }
 
+  //   setUser(JSON.parse(localStorage.getItem('profile')))
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [location])
 
-  // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
