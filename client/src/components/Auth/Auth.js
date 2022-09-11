@@ -32,6 +32,7 @@ const Auth = () => {
             document.getElementById('signInDiv'),
             { theme: 'outline', size: 'large', shape: 'pill', logo_alignment: 'center', width: '100%' }
         )
+        // eslint-disable-next-line 
     }, [])
 
 

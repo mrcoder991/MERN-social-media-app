@@ -86,8 +86,8 @@
       "sizes": "1920x1080"
     },
     {
-      "src": "/Screenshots/Screenshot2.jpg",
-      "type": "image/jpg",
+      "src": "/Screenshots/Screenshot2.png",
+      "type": "image/png",
       "sizes": "1920x1080"
     },
     {
@@ -96,8 +96,8 @@
       "sizes": "1920x1080"
     },
     {
-      "src": "/Screenshots/Screenshot4.jpg",
-      "type": "image/jpg",
+      "src": "/Screenshots/Screenshot4.png",
+      "type": "image/png",
       "sizes": "1920x1080"
     }
   ],

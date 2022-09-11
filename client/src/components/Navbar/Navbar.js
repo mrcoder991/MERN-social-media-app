@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Avatar, Button, Toolbar, Typography, Box, Tooltip, IconButton, Popover, Divider } from '@material-ui/core';
 import Modal from '../Modal'
 import { useDispatch } from 'react-redux';
-import decode from 'jwt-decode';
+// import decode from 'jwt-decode';
 import useStyles from './Styles'
 import nonTextForLight from '../../images/nonTextForLight.png';
 import nonTextForDark from '../../images/nonTextForDark.png';
