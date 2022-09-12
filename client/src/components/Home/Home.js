@@ -46,11 +46,11 @@ const Home = () => {
     useEffect(() => {
         if (!user) {
             /* global google */
-            google?.accounts.id.initialize({
+            google.accounts.id.initialize({
                 client_id: '74117768345-1ui9u3cp9db7vkegavpv4impvpc8tm2r.apps.googleusercontent.com',
                 callback: googleSuccess
             });
-            google?.accounts.id.prompt();
+            google.accounts.id.prompt();
         }
         // eslint-disable-next-line
     }, [])
