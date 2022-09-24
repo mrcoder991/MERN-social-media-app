@@ -96,6 +96,10 @@ const Navbar = () => {
                 <div className={classes.userMenuItem}>
                   <Button disableElevation onClick={logout} size="small" variant="outlined">Log out</Button>
                 </div>
+                <Divider className={classes.divider} />
+                <div className={classes.privacyPolicy}>
+                  <Typography variant="caption" component={Link} to='/privacypolicy'>Privacy Policy</Typography>
+                </div>
               </div>
             </Popover>
           </Box>

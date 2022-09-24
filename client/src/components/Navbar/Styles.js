@@ -79,4 +79,9 @@ export default makeStyles((theme) => ({
   divider: {
     width: '100%',
   },
+  privacyPolicy: {
+    display: 'grid',
+    placeItems: 'center',
+    padding:'0.5em'
+  }
 }));
